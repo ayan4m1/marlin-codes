@@ -33,8 +33,14 @@ export default function Footer() {
       </Grid>
       <Grid item xs={12}>
         <Typography paragraph>
-          Data taken from [Marlin
-          Documentation](https://github.com/MarlinFirmware/MarlinDocumentation).
+          Data taken from{' '}
+          <a
+            href="https://github.com/MarlinFirmware/MarlinDocumentation"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            Marlin Documentation
+          </a>
         </Typography>
       </Grid>
     </Grid>
