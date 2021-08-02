@@ -51,6 +51,13 @@ module.exports = {
         ]
       }
     },
+    {
+      resolve: 'gatsby-plugin-google-fonts',
+      options: {
+        fonts: ['roboto:300,400,500,700'],
+        display: 'swap'
+      }
+    },
     'gatsby-transformer-json',
     'gatsby-plugin-offline',
     'gatsby-plugin-eslint',

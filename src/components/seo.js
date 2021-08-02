@@ -44,7 +44,12 @@ function SEO({ description, lang, meta, title }) {
           content: `website`
         }
       ].concat(meta)}
-    />
+    >
+      <meta
+        name="viewport"
+        content="minimum-scale=1, initial-scale=1, width=device-width"
+      />
+    </Helmet>
   );
 }
 

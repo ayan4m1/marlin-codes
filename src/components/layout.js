@@ -1,3 +1,4 @@
+import { CssBaseline } from '@material-ui/core';
 import { Fragment } from 'react';
 import PropTypes from 'prop-types';
 
@@ -8,6 +9,7 @@ import SEO from '~components/seo';
 export default function Layout({ children, seoProps = {} }) {
   return (
     <Fragment>
+      <CssBaseline />
       <SEO {...seoProps} />
       <Header />
       <main>{children}</main>
