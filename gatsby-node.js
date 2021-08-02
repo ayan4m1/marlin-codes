@@ -49,6 +49,15 @@ exports.createPages = async (options) => {
   await createMarkdownPages(options);
 };
 
+exports.onCreateBabelConfig = ({ actions }) => {
+  actions.setBabelPreset({
+    name: 'babel-preset-gatsby',
+    options: {
+      reactRuntime: 'automatic'
+    }
+  });
+};
+
 exports.onCreateWebpackConfig = ({ actions }) => {
   actions.setWebpackConfig({
     resolve: {
