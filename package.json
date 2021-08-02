@@ -1,6 +1,6 @@
 {
   "name": "marlin-codes",
-  "description": "A search tool for Marlin G-code information",
+  "description": "Search for Marlin commands by G-code or description",
   "version": "0.1.0",
   "author": "ayan4m1 <andrew@bulletlogic.com>",
   "dependencies": {

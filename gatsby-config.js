@@ -3,9 +3,9 @@ require('dotenv').config();
 module.exports = {
   siteMetadata: {
     title: 'Marlin Codes',
-    description: 'Searchable database of Marlin G-code.',
+    description: 'Search for Marlin commands by G-code or description',
     author: '@ayan4m1',
-    siteUrl: 'https://marlincodes.org'
+    siteUrl: 'https://marlincodes.com'
   },
   plugins: [
     {
