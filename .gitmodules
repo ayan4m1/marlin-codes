@@ -1,3 +1,3 @@
 [submodule "docs"]
 	path = docs
-	url = git@github.com:ayan4m1/MarlinDocumentation.git
+	url = git@github.com:MarlinFirmware/MarlinDocumentation.git
