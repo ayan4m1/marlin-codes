@@ -1,4 +1,4 @@
-import { AppBar, Toolbar, Typography } from '@material-ui/core';
+import { AppBar, Toolbar, Typography } from '@mui/material';
 import { useStaticQuery, graphql } from 'gatsby';
 import PropTypes from 'prop-types';
 

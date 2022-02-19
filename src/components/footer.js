@@ -1,5 +1,5 @@
 import { Link } from 'gatsby';
-import { Grid, Typography } from '@material-ui/core';
+import { Grid, Typography } from '@mui/material';
 
 export default function Footer() {
   return (

@@ -1,5 +1,9 @@
-import { ThemeProvider, createTheme } from '@material-ui/core/styles';
-import { CssBaseline } from '@material-ui/core';
+import {
+  ThemeProvider,
+  StyledEngineProvider,
+  createTheme
+} from '@mui/material/styles';
+import { CssBaseline } from '@mui/material';
 
 import { Fragment } from 'react';
 import PropTypes from 'prop-types';
@@ -13,13 +17,15 @@ const theme = createTheme();
 export default function Layout({ children, seoProps = {} }) {
   return (
     <Fragment>
-      <ThemeProvider theme={theme}>
-        <CssBaseline />
-        <SEO {...seoProps} />
-        <Header />
-        <main>{children}</main>
-        <Footer />
-      </ThemeProvider>
+      <StyledEngineProvider injectFirst>
+        <ThemeProvider theme={theme}>
+          <CssBaseline />
+          <SEO {...seoProps} />
+          <Header />
+          <main>{children}</main>
+          <Footer />
+        </ThemeProvider>
+      </StyledEngineProvider>
     </Fragment>
   );
 }
