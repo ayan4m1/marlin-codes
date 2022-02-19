@@ -1,4 +1,4 @@
-import { ThemeProvider, createMuiTheme } from '@material-ui/core/styles';
+import { ThemeProvider, createTheme } from '@material-ui/core/styles';
 import { CssBaseline } from '@material-ui/core';
 
 import { Fragment } from 'react';
@@ -8,7 +8,7 @@ import Footer from '~components/footer';
 import Header from '~components/header';
 import SEO from '~components/seo';
 
-const theme = createMuiTheme();
+const theme = createTheme();
 
 export default function Layout({ children, seoProps = {} }) {
   return (
