@@ -6,11 +6,11 @@ const createMarkdownPages = async ({ actions, graphql, reporter }) => {
   const result = await graphql(`
     {
       allMarkdownRemark(limit: 1000) {
-        edges {
-          node {
-            frontmatter {
-              tag
-            }
+        nodes {
+          id
+          frontmatter {
+            tag
+            codes
           }
         }
       }
@@ -24,25 +24,37 @@ const createMarkdownPages = async ({ actions, graphql, reporter }) => {
 
   let counter = 0;
 
-  result.data.allMarkdownRemark.edges.forEach(({ node }) => {
+  result.data.allMarkdownRemark.nodes.forEach((node) => {
     const {
-      frontmatter: { tag }
+      id,
+      frontmatter: { tag, codes }
     } = node;
 
+    counter++;
+
     if (!tag) {
-      reporter.warn(`Did not find a tag in the frontmatter of ${tag}`);
+      reporter.warn(`Did not find a tag in the frontmatter of ${id}`);
       return;
     }
 
-    counter++;
+    for (const code of codes) {
+      reporter.info(`Creating page /code/${code}`);
+      createPage({
+        context: { tag },
+        component,
+        path: `/code/${code}`
+      });
+    }
+
+    reporter.info(`Creating page /tag/${tag}`);
     createPage({
       context: { tag },
       component,
-      path: `/code/${tag}`
+      path: `/tag/${tag}`
     });
   });
 
-  reporter.info(`Created ${counter} markdown pages!`);
+  reporter.info(`Parsed ${counter} markdown files!`);
 };
 
 exports.createPages = async (options) => {
@@ -67,4 +79,71 @@ exports.onCreateWebpackConfig = ({ actions }) => {
       }
     }
   });
+};
+
+const wrapArray = (arrayOrString, splitter) => {
+  if (!arrayOrString) {
+    return null;
+  }
+
+  if (Array.isArray(arrayOrString)) {
+    return arrayOrString;
+  }
+
+  if (splitter) {
+    return arrayOrString.split(splitter);
+  } else {
+    return [arrayOrString];
+  }
+};
+
+exports.createSchemaCustomization = ({ actions, schema }) => {
+  const { createTypes } = actions;
+  const typeDefs = [
+    schema.buildObjectType({
+      name: 'MarkdownRemarkFrontmatter',
+      fields: {
+        group: {
+          type: '[String]',
+          resolve: ({ group }) => wrapArray(group)
+        },
+        related: {
+          type: '[String]',
+          resolve: ({ related }) => wrapArray(related)
+        },
+        notes: {
+          type: '[String]',
+          resolve: ({ notes }) => wrapArray(notes, '\n')
+        },
+        contrib: {
+          type: '[String]',
+          resolve: ({ contrib }) => wrapArray(contrib, /,\s+/g)
+        }
+      }
+    }),
+    schema.buildObjectType({
+      name: 'MarkdownRemarkFrontmatterExamples',
+      fields: {
+        pre: {
+          type: '[String]',
+          resolve: ({ pre }) => wrapArray(pre)
+        },
+        code: {
+          type: '[String]',
+          resolve: ({ code }) => wrapArray(code)
+        }
+      }
+    }),
+    schema.buildObjectType({
+      name: 'MarkdownRemarkFrontmatterParametersValues',
+      fields: {
+        tag: {
+          type: 'String',
+          resolve: ({ tag }) => (Number.isInteger(tag) ? `${tag}` : tag)
+        }
+      }
+    })
+  ];
+
+  createTypes(typeDefs);
 };
