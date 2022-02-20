@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 
 import NotFoundPage from '~pages/404';
 import Layout from '~components/layout';
+import { Grid, Paper, Typography } from '@mui/material';
 
 export default function MarkdownPage({ data }) {
   if (!data || !data.markdownRemark) {
@@ -12,13 +13,22 @@ export default function MarkdownPage({ data }) {
   const {
     markdownRemark: {
       html,
-      frontmatter: { title, brief }
+      frontmatter: { title, brief, codes }
     }
   } = data;
 
   return (
     <Layout seoProps={{ title, description: brief }}>
+      <Typography variant="h3">{title}</Typography>
       <div dangerouslySetInnerHTML={{ __html: html }} />
+      <Grid container>
+        {Boolean(codes) &&
+          codes.map((code) => (
+            <Grid item xs={12} key={code}>
+              <Paper>{code}</Paper>
+            </Grid>
+          ))}
+      </Grid>
     </Layout>
   );
 }
@@ -36,6 +46,7 @@ export const pageQuery = graphql`
       frontmatter {
         brief
         title
+        codes
       }
     }
   }

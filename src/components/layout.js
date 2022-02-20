@@ -3,7 +3,7 @@ import {
   StyledEngineProvider,
   createTheme
 } from '@mui/material/styles';
-import { CssBaseline } from '@mui/material';
+import { Container, CssBaseline } from '@mui/material';
 
 import { Fragment } from 'react';
 import PropTypes from 'prop-types';
@@ -22,7 +22,9 @@ export default function Layout({ children, seoProps = {} }) {
           <CssBaseline />
           <SEO {...seoProps} />
           <Header />
-          <main>{children}</main>
+          <Container>
+            <main>{children}</main>
+          </Container>
           <Footer />
         </ThemeProvider>
       </StyledEngineProvider>

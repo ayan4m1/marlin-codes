@@ -1,5 +1,5 @@
-import { AppBar, Toolbar, Typography } from '@mui/material';
-import { useStaticQuery, graphql } from 'gatsby';
+import { AppBar, Toolbar, Typography, Link } from '@mui/material';
+import { useStaticQuery, graphql, Link as NavLink } from 'gatsby';
 import PropTypes from 'prop-types';
 
 export default function Header() {
@@ -14,9 +14,13 @@ export default function Header() {
   `);
 
   return (
-    <AppBar position="static">
+    <AppBar position="static" sx={{ mb: 2 }}>
       <Toolbar>
-        <Typography variant="h6">{data?.site?.siteMetadata?.title}</Typography>
+        <Link color="inherit" component={NavLink} to="/">
+          <Typography variant="h6">
+            {data?.site?.siteMetadata?.title}
+          </Typography>
+        </Link>
       </Toolbar>
     </AppBar>
   );
